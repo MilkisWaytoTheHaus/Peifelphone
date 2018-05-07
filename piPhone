@@ -1,9 +1,17 @@
-/* ------------------------------------------------
-Project:        Pi-Phone
-Team:           Alexander Hausmann & Ilka Salomon
-Creation date:  07.05.2018
-Current state:  07.05.2018
------------------------------------------------- */
+
+/* -------------------------------------------------- *
+ _____  _          _____   _                          *
+|  __ \(_)        |  __ \ | |                         *
+| |__) |_  ______ | |__) || |__    ___   _ __    ___  *
+|  ___/| ||______||  ___/ | '_ \  / _ \ | '_ \  / _ \ *
+| |    | |        | |     | | | || (_) || | | ||  __/ *
+|_|    |_|        |_|     |_| |_| \___/ |_| |_| \___| *
+----------------------------------------------------- *                                                     
+* Project:        Pi-Phone                            *
+* Team:           Alexander Hausmann & Ilka Salomon   *
+* Creation date:  07.05.2018                          *
+* Current state:  07.05.2018                          *
+----------------------------------------------------- */
 
 // INCLUDES
 #include <wiringPi.h>       // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.h
