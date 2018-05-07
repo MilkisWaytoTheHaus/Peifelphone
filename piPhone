@@ -73,7 +73,7 @@ void main () {
   
   // FOREVER-LOOP
   LOOP {
-    // SMS ---
+    // SMS (WRITE) ---
     
     message = strcpy(message, "Hello World");  // TE
     number = strcpy(number, "+491781982364");  // ST
@@ -88,7 +88,14 @@ void main () {
      strcat (tdstring, ><CTRL-Z>");                              // .. -> End String
      serialPuts(fd, tdstring);                                   // Sends Message
     }
-    // -- End Sms
+    // -- End Sms (Write)
+    
+    // SMS (READ) ---
+    
+    
+    
+    // -- End Sms (Read)
+    
     
   }
   // -- End Loop
