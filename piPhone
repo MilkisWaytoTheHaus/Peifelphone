@@ -24,17 +24,17 @@
   #define LOOP while(1)
   #define BAUDRATE 9600
 // -> GSM-Modem
-  //     Name    Pin-Number
-  #define NET       
-  #define RST       
-  #define RXT       
-  #define TXD       
-  #define RING      
-  #define DTR       
-  #define MICP      
-  #define MICN      
-  #define SPKP      
-  #define SPKN      
+  //     Name    Pin-Number (WiringPi)   Pin-Number (Physical)
+  #define NET             28          //         20/38
+  #define RST             27          //         16/36
+  //define RXT                                   USB D+ 
+  //define TXD                                   USB D-
+  #define RING            29          //         21/40              
+  //#define DTR                                 USB DTR
+  //#define MICP                                  GSM     
+  //#define MICN                                  GSM        
+  //#define SPKP                                  GSM       
+  //#define SPKN                                  GSM        
 // --
 
 // FUNCTION PROTOTYPES
