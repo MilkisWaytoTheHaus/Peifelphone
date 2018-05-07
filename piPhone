@@ -11,8 +11,20 @@ Current state:  07.05.2018
 // --
 
 // DEFINES
-#define LOOP while(1)
-#define BAUDRATE 9600
+// -> General
+  #define LOOP while(1)
+  #define BAUDRATE 9600
+// -> GSM-Module
+  #define NET 
+  #define RST
+  #define RXT
+  #define TXD
+  #define RING
+  #define DTR
+  #define MICP
+  #define MICN
+  #define SPKP
+  #define SPKN
 // --
 
 // FUNCTION PROTOTYPES
@@ -25,11 +37,22 @@ void main () {
   
   // --
   // Setup
+  // -> Pins                      
+    pinMode (NET, INPUT);   // Network State ??
+    pinMode (RST, OUTPUT);  // Reset ??
+    pinMode (RXT, INPUT);   // Recieve Data
+    pinMode (TXD, OUTPUT);  // Transmit Data
+    pinMode (RING, INPUT);  // Ring ??
+    pinMode (DTR, INPUT);   // Data Terminal Ready
+    pinMode (MICP, INPUT);  // '\ Differential Audio 
+    pinMode (MICN, INPUT);  // ,/ Input
+    pinMode (SPKP, OUTPUT); // '\ Differential Audio
+    pinMode (SPKN, OUTPUT); // ,/ Output
   
   // --
   // Forever-Loop
   LOOP {
-  
+    
   }
   // --
 }
