@@ -24,7 +24,7 @@
   #define BAUDRATE 9600
 // -> GSM-Module
   //     Name    Pin-Number
-  #define NET        
+  #define NET       
   #define RST       
   #define RXT       
   #define TXD       
@@ -41,10 +41,12 @@
 
 // MAIN PROGRAM ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void main () {
+
   // VARIABLES
+   int fd; // For Serial Functions
   
+  // -- End Variables
   
-  // --
   // SETUP
   // -> Pins                      
     pinMode (NET, INPUT);   // Network State ??
@@ -57,22 +59,15 @@ void main () {
     pinMode (MICN, INPUT);  // ,/ Input
     pinMode (SPKP, OUTPUT); // '\ Differential Audio
     pinMode (SPKN, OUTPUT); // ,/ Output
+  // -> Serial
+    fd = serialOpen ("/dev/ttyAMA0", BAUDRATE); // Start Serial Communication
+    wiringPiSetup ();                           // Wiring Pi Setup
+  // -- End Setup
   
-  
-    //extern int   serialOpen      (const char *device, const int baud) ;
-    serialOpen (??, BAUDRATE);
-  // --
   // FOREVER-LOOP
   LOOP {
     
-    //extern void  serialClose     (const int fd) ;
-    //extern void  serialFlush     (const int fd) ;
-    //extern void  serialPutchar   (const int fd, const unsigned char c) ;
-    //extern void  serialPuts      (const int fd, const char *s) ;
-    //extern void  serialPrintf    (const int fd, const char *message, ...) ;
-    //extern int   serialDataAvail (const int fd) ;
-    //extern int   serialGetchar   (const int fd) ;
   }
-  // --
+  // -- End Loop
 }
-// --
+// -- End Main
