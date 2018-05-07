@@ -16,13 +16,14 @@
 // INCLUDES
 #include <wiringPi.h>       // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.h
 #include <wiringSerial.h>   // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringSerial.h
+#include <string.h>
 // --
 
 // DEFINES
 // -> General
   #define LOOP while(1)
   #define BAUDRATE 9600
-// -> GSM-Module
+// -> GSM-Modem
   //     Name    Pin-Number
   #define NET       
   #define RST       
@@ -43,7 +44,10 @@
 void main () {
 
   // VARIABLES
-   int fd; // For Serial Functions
+  // -> For Serial Functions
+    int fd; 
+    char answer[20];
+    char Message[100]
   
   // -- End Variables
   
@@ -60,13 +64,20 @@ void main () {
     pinMode (SPKP, OUTPUT); // '\ Differential Audio
     pinMode (SPKN, OUTPUT); // ,/ Output
   // -> Serial
+                      // USB !!!!
     fd = serialOpen ("/dev/ttyAMA0", BAUDRATE); // Start Serial Communication
     wiringPiSetup ();                           // Wiring Pi Setup
   // -- End Setup
   
   // FOREVER-LOOP
   LOOP {
-    
+    // SMS ---
+    serialPuts(fd, "AT+CMGF=1");                                 // Sets the GSM-Modem in SMS Text Mode 
+    answer = serialGetchar(fd);                                  // Get answer of GSM-Modem
+    if (answer == "OK") {                                        // Answer is "OK"?
+     serialPuts(fd, "AT+CMGS=\"+491781982364\">hallo><CTRL-Z>";  // Sends Message
+    }
+    // -- End Sms
   }
   // -- End Loop
 }
