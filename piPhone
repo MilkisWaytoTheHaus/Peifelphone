@@ -6,8 +6,8 @@ Current state:  07.05.2018
 ------------------------------------------------ */
 
 // INCLUDES
-#include <wiringPi.h>
-#include <wiringSerial.h>
+#include <wiringPi.h>       // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.h
+#include <wiringSerial.h>   // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringSerial.h
 // --
 
 // DEFINES
@@ -15,28 +15,29 @@ Current state:  07.05.2018
   #define LOOP while(1)
   #define BAUDRATE 9600
 // -> GSM-Module
-  #define NET 
-  #define RST
-  #define RXT
-  #define TXD
-  #define RING
-  #define DTR
-  #define MICP
-  #define MICN
-  #define SPKP
-  #define SPKN
+  //     Name    Pin-Number
+  #define NET        
+  #define RST       
+  #define RXT       
+  #define TXD       
+  #define RING      
+  #define DTR       
+  #define MICP      
+  #define MICN      
+  #define SPKP      
+  #define SPKN      
 // --
 
 // FUNCTION PROTOTYPES
 // --
 
-// MAIN PROGRAM
+// MAIN PROGRAM ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void main () {
-  // Variables
+  // VARIABLES
   
   
   // --
-  // Setup
+  // SETUP
   // -> Pins                      
     pinMode (NET, INPUT);   // Network State ??
     pinMode (RST, OUTPUT);  // Reset ??
@@ -49,10 +50,20 @@ void main () {
     pinMode (SPKP, OUTPUT); // '\ Differential Audio
     pinMode (SPKN, OUTPUT); // ,/ Output
   
+  
+    //extern int   serialOpen      (const char *device, const int baud) ;
+    serialOpen (??, BAUDRATE);
   // --
-  // Forever-Loop
+  // FOREVER-LOOP
   LOOP {
     
+    //extern void  serialClose     (const int fd) ;
+    //extern void  serialFlush     (const int fd) ;
+    //extern void  serialPutchar   (const int fd, const unsigned char c) ;
+    //extern void  serialPuts      (const int fd, const char *s) ;
+    //extern void  serialPrintf    (const int fd, const char *message, ...) ;
+    //extern int   serialDataAvail (const int fd) ;
+    //extern int   serialGetchar   (const int fd) ;
   }
   // --
 }
