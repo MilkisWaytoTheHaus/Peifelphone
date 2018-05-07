@@ -47,7 +47,9 @@ void main () {
   // -> For Serial Functions
     int fd; 
     char answer[20];
-    char Message[100]
+    char message[100];
+    char number[14];
+    char tdstring[120];
   
   // -- End Variables
   
@@ -72,12 +74,22 @@ void main () {
   // FOREVER-LOOP
   LOOP {
     // SMS ---
+    
+    message = strcpy(message, "Hello World");  // TE
+    number = strcpy(number, "+491781982364");  // ST
+    
     serialPuts(fd, "AT+CMGF=1");                                 // Sets the GSM-Modem in SMS Text Mode 
     answer = serialGetchar(fd);                                  // Get answer of GSM-Modem
     if (answer == "OK") {                                        // Answer is "OK"?
-     serialPuts(fd, "AT+CMGS=\"+491781982364\">hallo><CTRL-Z>";  // Sends Message
+     strcpy (tdstring, "AT+CMGS=\"");                            // Make tdString -> Start String
+     strcat (tdsting", number);                                  // .. -> Number of Receiver
+     strcat (tdstring, \">);                                     // .. -> String after Number
+     strcat (tdstring, message);                                 // .. -> Message to Receiver
+     strcat (tdstring, ><CTRL-Z>");                              // .. -> End String
+     serialPuts(fd, tdstring);                                   // Sends Message
     }
     // -- End Sms
+    
   }
   // -- End Loop
 }
