@@ -10,7 +10,7 @@
 * Project:        Pi-Phone                            *
 * Team:           Alexander Hausmann & Ilka Salomon   *
 * Creation date:  07.05.2018                          *
-* Current state:  07.05.2018                          *
+* Current state:  11.05.2018                          *
 ----------------------------------------------------- */
 
 // INCLUDES
@@ -104,16 +104,19 @@ void main () {
   // -- End Loop
 }
 // -- End Main ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// sendAT
-void sendAT () {
 
+// sendAT ----------------------------------------------------------
+void sendAT (int fd, char AT_Command [150]) {
+ serialPuts(fd,AT_Command);
 }
-// -- End sendAT
-// recieveAT
-void receiveAT () {
+// -- End sendAT ---------------------------------------------------
 
+// recieveAT -------------------------------------------------------
+void receiveAT (int fd, char AT_Command [150], int AT_Information) {
+  AT_Command = serialGetchar(fd);
+  if (AT_Command [0] == "O" && AT_Command [1] == "1")
 }
-// - End receiveAT
+// - End receiveAT --------------------------------------------------
 // SMS WRITE --------------------------------------------------------
 void writeSMS  () {
 /* Protokoll:
