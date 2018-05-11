@@ -38,6 +38,7 @@
 // --
 
 // FUNCTION PROTOTYPES
+ void sendAT();
  void writeSMS ();
  void readSMS ();
 // --
@@ -103,7 +104,16 @@ void main () {
   // -- End Loop
 }
 // -- End Main ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// sendAT
+void sendAT () {
 
+}
+// -- End sendAT
+// recieveAT
+void receiveAT () {
+
+}
+// - End receiveAT
 // SMS WRITE --------------------------------------------------------
 void writeSMS  () {
 /* Protokoll:
@@ -116,12 +126,25 @@ void writeSMS  () {
    -> SMS Ready
    AT+CMGF=1                // Set SMS Text Format
    -> OK
-   AT+CMGS="xxxxxxxxxxx"    // Set Number of Receiver
+   AT+CMGS="xxxxxxxxxxxxx"    // Set Number of Receiver
    > blabla                 // Set Text
    > <CTRL-Z>               // Set End of SMS
    -> +CGMS: x
    -> OK
-   */
+*/
 
 
 } -- End writeSMS ---------------------------------------------------
+
+// SMS READ --------------------------------------------------------
+void readSMS  () {
+/* Protokoll:
+   -> +CMTI: "SM",3         // Received SMS, saved to Mem 3
+   AT+CMGR = 3              // Readout SMS on Mem 3
+   -> +CMGR: "REC UNREAD","xxxxxxxxxxxxx","","xx/xx/xx,xx:xx:xx+xx"
+   -> blabla
+   -> OK
+*/
+
+
+} -- End readSMS ---------------------------------------------------
