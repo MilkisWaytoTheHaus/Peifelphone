@@ -38,6 +38,8 @@
 // --
 
 // FUNCTION PROTOTYPES
+ void writeSMS ();
+ void readSMS ();
 // --
 
 // MAIN PROGRAM ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -100,4 +102,26 @@ void main () {
   }
   // -- End Loop
 }
-// -- End Main
+// -- End Main ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// SMS WRITE --------------------------------------------------------
+void writeSMS  () {
+/* Protokoll:
+   AT                       // Test Connection to GSM-Modem
+   -> OK                          
+   AT+CPIN = "xxxx"         // Input PIN
+   -> OK            
+   -> +CPIN: READY          // *LED pulses 3000 ms Rhythm*
+   -> Call Ready
+   -> SMS Ready
+   AT+CMGF=1                // Set SMS Text Format
+   -> OK
+   AT+CMGS="xxxxxxxxxxx"    // Set Number of Receiver
+   > blabla                 // Set Text
+   > <CTRL-Z>               // Set End of SMS
+   -> +CGMS: x
+   -> OK
+   */
+
+
+} -- End writeSMS ---------------------------------------------------
