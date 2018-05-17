@@ -114,7 +114,15 @@ void sendAT (int fd, char AT_Command [150]) {
 // recieveAT -------------------------------------------------------
 void receiveAT (int fd, char AT_Command [150], int AT_Information) {
   AT_Command = serialGetchar(fd);
-  if (AT_Command [0] == "O" && AT_Command [1] == "1")
+  if (strncmp(AT_Command, "OK",2) == 0) {
+    AT_Information = 1;
+  }
+  if (strncmp(AT_Command, "+CMGS",5) == 0) { // Sent Message
+    AT_Information = AT_Command [6];
+  } 
+  if (strncmp(AT_Command, "+",1) == 0) {
+    
+  } 
 }
 // - End receiveAT --------------------------------------------------
 // SMS WRITE --------------------------------------------------------
@@ -130,9 +138,9 @@ void writeSMS  () {
    AT+CMGF=1                // Set SMS Text Format
    -> OK
    AT+CMGS="xxxxxxxxxxxxx"    // Set Number of Receiver
-   > blabla                 // Set Text
-   > <CTRL-Z>               // Set End of SMS
-   -> +CGMS: x
+   > blabla                  // Set Text
+   > <CTRL-Z>                // Set End of SMS
+   -> +CMGS: x               // Message Reference
    -> OK
 */
 
