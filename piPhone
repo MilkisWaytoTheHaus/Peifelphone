@@ -49,11 +49,12 @@ void main () {
   // VARIABLES
   // -> For Serial Functions
     int fd; 
+    char command[100];
     char answer[20];
     char message[100];
     char number[14];
     char tdstring[120];
-  
+    
   // -- End Variables
   
   // SETUP
@@ -76,7 +77,18 @@ void main () {
   
   // FOREVER-LOOP
   LOOP {
-    // SMS (WRITE) ---
+  
+    // TEST ---
+    printf("Command:\t");
+    scanf("%s", &command);
+    fflush(stdin);
+    serialPuts(fd, command);                                     // Send command to GSM-Modem 
+    answer = serialGetchar(fd);                                  // Get answer of GSM-Modem
+    printf("Answer from GSM-Modem: %s\n---.----.\n\n")           // Output answer of GSM-Modem
+    // -- End Test
+    
+    
+    /* SMS (WRITE) ---
     
     message = strcpy(message, "Hello World");  // TE
     number = strcpy(number, "+491781982364");  // ST
@@ -91,15 +103,7 @@ void main () {
      strcat (tdstring, ><CTRL-Z>");                              // .. -> End String
      serialPuts(fd, tdstring);                                   // Sends Message
     }
-    // -- End Sms (Write)
-    
-    // SMS (READ) ---
-    
-    
-    
-    // -- End Sms (Read)
-    
-    
+    // -- End Sms (Write) */
   }
   // -- End Loop
 }
