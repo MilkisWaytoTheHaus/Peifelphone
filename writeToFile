@@ -1,39 +1,90 @@
 // Read and Write stdio to FILE
+ #include <stdio.h>
 
-struct Contact {
-char name[30] = {"Ilka Salomon"};
-int number[12] = {4,9,1,7,8,1,9,8,2,3,6,4};
-};
+typedef struct {
+char namef[30];
+char names[30];
+char number[14];
+} cont;
 
-#typedef struct Contact cont
-#include <stdio.h>
 
 int main () {
-
-// Variables
-FILE *contacts;
-cont activeContact;
-char buff[1000];
-
-// open File
-contacts = fopen("PATH!!", "a+"); // open contact File in read - write - append mode
-
-// READ ---------------------------------------------------------------------
-
-fgets(buff, 1000, (FILE*)contacts )
-
-// WRITE --------------------------------------------------------------------
-
-// get Information from user
-printf ("Your name:\t");
-scanf ("%s", &(activeContact.name));
-printf ("Your number:\t");
-scanf ("%i", &(activeContact.number));
-
-// write to File
-fprintf(contacts, "%s %i", activeContact.name, activeContact.number);
-
-//close File
-fclose(contacts);
-
+	
+	// Variables
+	FILE *contacts;
+	cont activeContact;
+	char buff[1000];
+	int a;
+	
+	printf(" What do you want to do?\n -1- for write a new Contact\n -2- for read all Contacts\n -3- for read specific Contact\n");
+	scanf("%i", &a);
+	system("cls");
+	printf("\n C O N T A C T S\n --------------------------------------\n\n");
+	
+	switch (a) {
+		// WRITE --------------------------------------------------------------------
+		case 1:	
+			// open File
+			contacts = fopen("contacts.dat", "a+b"); // open contact File in read - write - append mode
+			if( NULL == contacts ) {
+				printf("ERROR!");
+			} else {	
+				// get Information from user
+				printf (" Your first name:\t");
+				scanf ("%s", &(activeContact.namef));
+				fflush(stdin);
+				printf (" Your second name:\t");
+				scanf ("%s", &(activeContact.names));
+				fflush(stdin);
+				printf (" Your number:\t\t");
+				scanf ("%s", &(activeContact.number));
+				
+				// write to File
+				fseek(contacts, 0, SEEK_END);
+				fwrite(&activeContact, sizeof(cont), 1, contacts);
+				
+				//close File
+				fclose(contacts);
+			}
+			break;
+		// READ ---------------------------------------------------------------------
+		case 2:
+			// open File
+			contacts = fopen("contacts.dat", "r+b"); // open contact File in read - write - append mode
+			if( NULL == contacts ) {
+				printf("ERROR!");
+			} else {	
+				while(fread(&activeContact, sizeof(cont), 1, contacts) == 1) {
+					printf(" First Name:\t%s\n", activeContact.namef);
+					printf(" Second Name:\t%s\n", activeContact.names);
+					printf(" Number:\t%s\n\n", activeContact.number);
+					printf(" --------------------------------------\n\n");
+				}
+				
+				//close File
+				fclose(contacts);
+			}
+			break;
+		case 3:
+			printf(" Which Contact do you want to read?");
+			scanf("%i", &a);
+			system("cls");
+			printf("\n C O N T A C T S\n --------------------------------------\n\n");
+			contacts = fopen("contacts.dat", "r+b"); // open contact File in read - write - append mode
+			if( NULL == contacts ) {
+				printf("ERROR!");
+			} else {
+				fseek(contacts, (a-1)*sizeof(cont), SEEK_SET);	
+				fread(&activeContact, sizeof(cont), 1, contacts);
+				printf(" First Name:\t%s\n", activeContact.namef);
+				printf(" Second Name:\t%s\n", activeContact.names);
+				printf(" Number:\t%s\n\n", activeContact.number);
+				printf(" --------------------------------------\n\n");
+				
+				//close File
+				fclose(contacts);
+			}
+			break;
+	}	
+	return 0;
 }
