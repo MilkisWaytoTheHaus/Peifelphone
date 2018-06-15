@@ -1,5 +1,10 @@
-// Read and Write stdio to FILE
- #include <stdio.h>
+// Read and Write contacts to a .dat file
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CONTACTFILE "contacts.dat"
+#define TMP "tmp.dat"
 
 typedef struct {
 char namef[30];
@@ -11,12 +16,14 @@ char number[14];
 int main () {
 	
 	// Variables
-	FILE *contacts;
+	FILE *contacts;		
+	FILE *helpFile;
 	cont activeContact;
 	char buff[1000];
-	int a;
+	int a;					// for choosing options
+	int i;					// counter
 	
-	printf(" What do you want to do?\n -1- for write a new Contact\n -2- for read all Contacts\n -3- for read specific Contact\n");
+	printf(" What do you want to do?\n -1- for write a new Contact\n -2- for read all Contacts\n -3- for read specific Contact (search for contact number)\n -4- for delete specific Contact (search for contact number)\n\n -> ");
 	scanf("%i", &a);
 	system("cls");
 	printf("\n C O N T A C T S\n --------------------------------------\n\n");
@@ -25,7 +32,7 @@ int main () {
 		// WRITE --------------------------------------------------------------------
 		case 1:	
 			// open File
-			contacts = fopen("contacts.dat", "a+b"); // open contact File in read - write - append mode
+			contacts = fopen(CONTACTFILE, "a+b"); // open contact File in read - write - append mode
 			if( NULL == contacts ) {
 				printf("ERROR!");
 			} else {	
@@ -50,15 +57,18 @@ int main () {
 		// READ ---------------------------------------------------------------------
 		case 2:
 			// open File
-			contacts = fopen("contacts.dat", "r+b"); // open contact File in read - write - append mode
+			contacts = fopen(CONTACTFILE, "r+b"); // open contact File in read - write - append mode
 			if( NULL == contacts ) {
 				printf("ERROR!");
 			} else {	
+				i = 1;
 				while(fread(&activeContact, sizeof(cont), 1, contacts) == 1) {
-					printf(" First Name:\t%s\n", activeContact.namef);
-					printf(" Second Name:\t%s\n", activeContact.names);
-					printf(" Number:\t%s\n\n", activeContact.number);
+					printf(" Contact Nr. %i:\n", i);
+					printf("   First Name:\t%s\n", activeContact.namef);
+					printf("   Second Name:\t%s\n", activeContact.names);
+					printf("   Number:\t%s\n\n", activeContact.number);
 					printf(" --------------------------------------\n\n");
+					i++;
 				}
 				
 				//close File
@@ -70,7 +80,7 @@ int main () {
 			scanf("%i", &a);
 			system("cls");
 			printf("\n C O N T A C T S\n --------------------------------------\n\n");
-			contacts = fopen("contacts.dat", "r+b"); // open contact File in read - write - append mode
+			contacts = fopen(CONTACTFILE, "r+b"); // open contact File in read - write - append mode
 			if( NULL == contacts ) {
 				printf("ERROR!");
 			} else {
@@ -83,6 +93,39 @@ int main () {
 				
 				//close File
 				fclose(contacts);
+			}
+			break;
+		case 4:
+			printf(" Which Contact do you want to delete?");
+			scanf("%i", &a);
+			system("cls");
+			printf("\n C O N T A C T S\n --------------------------------------\n\n");
+		   	helpFile = fopen(TMP, "a+b");		// tmp file
+		   	if( NULL == helpFile
+			    ) {
+				printf("ERROR!");
+			} else {
+			   	contacts = fopen(CONTACTFILE, "r+b"); // open contact File in read - write - append mode
+				if( NULL == contacts ) {
+					printf("ERROR!");
+				} else {
+					i = 1;
+					while(fread(&activeContact, sizeof(cont), 1, contacts) == 1 && i < a) {
+						fwrite(&activeContact, sizeof(cont), 1, helpFile);	// move to tmp file
+						i++;
+					}	// don't move file that will be deleted
+					while(fread(&activeContact, sizeof(cont), 1, contacts) == 1) {
+						fwrite(&activeContact, sizeof(cont), 1, helpFile);	// move to tmp file
+					}
+					
+					// close files
+					fclose(contacts);
+				   	fclose(helpFile);
+				   	
+				   	// organize tmp file and origin file
+				   	remove(CONTACTFILE);        // remove original File
+				   	rename(TMP, CONTACTFILE);   // rename tmp File 	
+				}
 			}
 			break;
 	}	
