@@ -1,28 +1,21 @@
 
 
 // INCLUDES
+#include <stdio.h>
+#include <string.h>
 #include <wiringPi.h>       // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.h
 #include <wiringSerial.h>   // Source: https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringSerial.h
-#include <string.h>
-#include <stdio.h>
 // --,
 
 // DEFINES
 // -> General
   #define LOOP while(1)
   #define BAUDRATE 9600
+  
 // -> GSM-Modem
-  //     Name    Pin-Number (WiringPi)   Pin-Number (Physical)
- // #define NET             28          //         20/38
-  //#define RST             8          //         16/36
-  #define RXT             8               //      USB D+ 
-  #define TXD            10              //         USB D-
-  //#define RING            29          //         21/40              
-  //#define DTR                                 USB DTR
-  //#define MICP                                  GSM     
-  //#define MICN                                  GSM        
-  //#define SPKP                                  GSM       
-  //#define SPKN                                  GSM        
+  //      Name    Pin-Number (WiringPi)   Pin-Number (Physical)
+  #define RXT     8            
+  #define TXD     10            
 // --
 
 // FUNCTION PROTOTYPES
@@ -35,14 +28,11 @@ void main () {
   // VARIABLES
   // -> For Serial Functions
     int fd; 
-    int i;
-    char command[100];
     int dataAvail;
+    char command[100];
     int answer[100];
-    char message[100];
-    char number[14];
-    char tdstring[120];
-    
+  // -> other
+    int i;
   // -- End Variables
   
   // SETUP
@@ -67,18 +57,20 @@ void main () {
     printf("Command:\t");
     scanf("%s", &command);
     fflush(stdin);
-    serialPuts(fd, command);                                     // Send command to GSM-Modem 
+    serialPuts(fd, command);                                            // Send command to GSM-Modem 
     dataAvail = -1;
-    dataAvail = serialDataAvail(fd);
+    while (dataAvail == -1 && i < 10000) {
+      dataAvail = serialDataAvail(fd);
+      i++;
+    }
     if (dataAvail != -1) {
       for (i=0;i<dataAvail;i++) { 
         answer[i] = serialGetchar(fd);                                  // Get answer of GSM-Modem
       }
-      printf("Answer from GSM-Modem: %s\n---.----.\n\n", answer);           // Output answer of GSM-Modem
+      printf("Answer from GSM-Modem: %s\n---.----.\n\n", answer);       // Output answer of GSM-Modem
     } else {
       printf("ERROR.\n\n");
-    }
-    
+    }    
     	// -- End Test
   }
   // -- End Loop
